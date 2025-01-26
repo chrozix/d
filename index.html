@@ -38,12 +38,12 @@
     </script>
 
     <style>
-      /* Fullscreen toggle and responsive styles */
+      /* Initially normal size for the embed */
       #gameContainer {
         width: 100%;
-        height: 100vh;
+        height: 500px; /* Or any size you prefer */
+        transition: height 0.5s ease-in-out; /* Smooth transition for height change */
         overflow: hidden;
-        position: relative;
       }
 
       .embed-responsive-16by9 {
@@ -62,16 +62,8 @@
       }
 
       /* Fullscreen Mode Styling */
-      .fullscreen {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        z-index: 1000;
-        background-color: rgba(0, 0, 0, 0.6);
-        color: white;
-        padding: 5px 10px;
-        cursor: pointer;
-        border-radius: 5px;
+      .fullscreen-mode {
+        height: 100vh; /* Take the full height of the viewport */
       }
 
       body, html {
@@ -81,7 +73,6 @@
         overflow: hidden;
       }
     </style>
-
 </head>
 <body>
 
@@ -96,9 +87,6 @@
         <div class="bbox pad-l text-center">
           <div id="eaglerGame">
             <div class="embed-responsive embed-responsive-16by9">
-              <!-- Fullscreen Button -->
-              <div class="fs fullscreen" id="fsButton" title="Toggle Fullscreen">Fullscreen</div>
-
               <div id="gameContainer">
                 <div id="splash">
                   <img class="img-responsive splash" src="/images/eagtek.png" />
@@ -110,7 +98,7 @@
                       <option value="https://eaglercraftx.pages.dev">1.8.8</option>
                       <option value="https://eaglercraft-bj5.pages.dev">1.5.2</option>
                     </select>
-                    <button type="button" id="eaglerBtn" class="btn btn-primary eaglerBtn" onclick="loadGame(); loadFS();">Play</button>
+                    <button type="button" id="eaglerBtn" class="btn btn-primary eaglerBtn" onclick="loadGame(); loadFullScreen();">Play</button>
                   </div>
                 </div>
               </div>
@@ -142,28 +130,31 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
   <script>
-    // Toggle fullscreen on button click
-    document.getElementById("fsButton").addEventListener("click", function () {
-      const gameContainer = document.getElementById("gameContainer");
+    // Function to load the game and resize the container
+    function loadFullScreen() {
+      var gameContainer = document.getElementById("gameContainer");
 
-      // If currently in fullscreen mode, exit it
-      if (gameContainer.classList.contains("fullscreen-mode")) {
-        document.exitFullscreen ? document.exitFullscreen() : document.webkitExitFullscreen ? document.webkitExitFullscreen() : document.mozCancelFullScreen();
-        gameContainer.classList.remove("fullscreen-mode");
-      } else {
-        // Enter fullscreen mode
-        if (gameContainer.requestFullscreen) {
-          gameContainer.requestFullscreen();
-        } else if (gameContainer.mozRequestFullScreen) { // Firefox
-          gameContainer.mozRequestFullScreen();
-        } else if (gameContainer.webkitRequestFullscreen) { // Chrome and Safari
-          gameContainer.webkitRequestFullscreen();
-        } else if (gameContainer.msRequestFullscreen) { // IE/Edge
-          gameContainer.msRequestFullscreen();
-        }
-        gameContainer.classList.add("fullscreen-mode");
-      }
-    });
+      // Add fullscreen class to game container after play button is clicked
+      gameContainer.classList.add("fullscreen-mode");
+
+      // Now load the actual game (you can modify this with whatever game load logic you need)
+      loadGame(); // Assuming loadGame() handles the actual game loading logic
+    }
+
+    // Example function for loading the game (use your own logic if needed)
+    function loadGame() {
+      var selectedVersion = document.getElementById("eaglerVersion").value;
+      // Here, you could dynamically embed the game based on selected version
+      // For example, create an iframe with the selected version URL
+
+      var iframe = document.createElement('iframe');
+      iframe.src = selectedVersion;
+      iframe.frameBorder = "0";
+      iframe.width = "100%";
+      iframe.height = "100%";
+      document.getElementById('gameContainer').innerHTML = ""; // Clear any existing content
+      document.getElementById('gameContainer').appendChild(iframe);
+    }
   </script>
 
 </body>
