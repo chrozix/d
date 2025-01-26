@@ -2,14 +2,10 @@
 <html lang="en">
 <head>
     <title>Eaglercraft</title>
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
     <link rel="manifest" href="/favicon/site.webmanifest">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
       (function(i, s, o, g, r, a, m) {
@@ -26,33 +22,26 @@
       ga('create', 'UA-70337607-1', 'auto');
       ga('send', 'pageview');
     </script>
-
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-80SFHYWE59"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-80SFHYWE59');
     </script>
-
     <style>
-      /* Initially normal size for the embed */
       #gameContainer {
         width: 100%;
-        height: 500px; /* Or any size you prefer */
-        transition: height 0.5s ease-in-out; /* Smooth transition for height change */
+        height: 500px;
+        transition: height 0.5s ease-in-out;
         overflow: hidden;
       }
-
       .embed-responsive-16by9 {
         position: relative;
-        padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+        padding-bottom: 56.25%;
         height: 0;
         overflow: hidden;
       }
-
       .embed-responsive iframe {
         position: absolute;
         top: 0;
@@ -60,12 +49,21 @@
         width: 100%;
         height: 100%;
       }
-
-      /* Fullscreen Mode Styling */
       .fullscreen-mode {
-        height: 100vh; /* Take the full height of the viewport */
+        height: 100vh;
       }
-
+      .fs-btn {
+        display: none;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 1000;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
       body, html {
         margin: 0;
         padding: 0;
@@ -83,7 +81,6 @@
         <div class="hbox text-center">
           <h1>Eaglercraft</h1>
         </div>
-
         <div class="bbox pad-l text-center">
           <div id="eaglerGame">
             <div class="embed-responsive embed-responsive-16by9">
@@ -98,14 +95,13 @@
                       <option value="https://eaglercraftx.pages.dev">1.8.8</option>
                       <option value="https://eaglercraft-bj5.pages.dev">1.5.2</option>
                     </select>
-                    <button type="button" id="eaglerBtn" class="btn btn-primary eaglerBtn" onclick="loadGame(); loadFullScreen();">Play</button>
+                    <button type="button" id="eaglerBtn" class="btn btn-primary eaglerBtn" onclick="loadGame(); showFullscreenButton();">Play</button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
       </div>
       <div class="col-md-2"></div>
     </div>
@@ -130,30 +126,43 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
   <script>
-    // Function to load the game and resize the container
-    function loadFullScreen() {
-      var gameContainer = document.getElementById("gameContainer");
-
-      // Add fullscreen class to game container after play button is clicked
-      gameContainer.classList.add("fullscreen-mode");
-
-      // Now load the actual game (you can modify this with whatever game load logic you need)
-      loadGame(); // Assuming loadGame() handles the actual game loading logic
-    }
-
-    // Example function for loading the game (use your own logic if needed)
     function loadGame() {
       var selectedVersion = document.getElementById("eaglerVersion").value;
-      // Here, you could dynamically embed the game based on selected version
-      // For example, create an iframe with the selected version URL
-
       var iframe = document.createElement('iframe');
       iframe.src = selectedVersion;
       iframe.frameBorder = "0";
       iframe.width = "100%";
       iframe.height = "100%";
-      document.getElementById('gameContainer').innerHTML = ""; // Clear any existing content
+      document.getElementById('gameContainer').innerHTML = "";
       document.getElementById('gameContainer').appendChild(iframe);
+    }
+
+    function showFullscreenButton() {
+      var fsButton = document.createElement("div");
+      fsButton.classList.add("fs-btn");
+      fsButton.innerText = "Fullscreen";
+      fsButton.onclick = toggleFullscreen;
+      document.getElementById('gameContainer').appendChild(fsButton);
+      fsButton.style.display = "block";
+    }
+
+    function toggleFullscreen() {
+      var gameContainer = document.getElementById("gameContainer");
+      if (gameContainer.classList.contains("fullscreen-mode")) {
+        document.exitFullscreen ? document.exitFullscreen() : document.webkitExitFullscreen ? document.webkitExitFullscreen() : document.mozCancelFullScreen();
+        gameContainer.classList.remove("fullscreen-mode");
+      } else {
+        if (gameContainer.requestFullscreen) {
+          gameContainer.requestFullscreen();
+        } else if (gameContainer.mozRequestFullScreen) {
+          gameContainer.mozRequestFullScreen();
+        } else if (gameContainer.webkitRequestFullscreen) {
+          gameContainer.webkitRequestFullscreen();
+        } else if (gameContainer.msRequestFullscreen) {
+          gameContainer.msRequestFullscreen();
+        }
+        gameContainer.classList.add("fullscreen-mode");
+      }
     }
   </script>
 
