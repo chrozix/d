@@ -20,7 +20,219 @@
       </div>
   </nav>
 </head>
+ <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0; /* Remove default body margins */
+        }
 
+        .topnav {
+            overflow: hidden;
+            background-color: #333;
+            position: fixed; /* Set position to fixed */
+            top: 0; /* Fix to the top */
+            width: 100%; /* Full width */
+            z-index: 1000; /* Ensure it's above other elements */
+        }
+
+        .topnav a {
+            color: white;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            display: block; /* Block display for better clickable area */
+        }
+
+        .topnav .icon {
+            display: none;
+        }
+
+        .topnav #myLinks {
+            display: flex; /* By default, links are shown */
+        }
+
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .topnav.responsive #myLinks {
+            flex-direction: column;
+        }
+
+        @media screen and (max-width: 600px) {
+            .topnav a {
+                display: none; /* Hide all links */
+            }
+            .topnav a.icon {
+                float: right;
+                display: block; /* Show hamburger icon */
+            }
+            .topnav.responsive {
+                position: relative;
+            }
+            .topnav.responsive #myLinks {
+                display: flex; /* Show the links when in responsive mode */
+            }
+            .topnav.responsive a {
+                display: block; /* Show links when clicked */
+            }
+        }
+
+        body {
+            font-family: 'Anton', sans-serif;
+            background-image: url('https://cdn.chro64.com/background.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            padding-top: 60px; /* Add padding to the top to avoid content hiding behind the navbar */
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80%;
+            max-width: 1000px;
+        }
+
+        .box {
+            width: 40%;
+            background-color: rgba(51, 51, 51, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 20px; /* Add space between boxes */
+        }
+
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid white;
+            white-space: nowrap;
+            letter-spacing: .15em;
+            margin-bottom: 20px;
+            width: 0; /* Start with zero width */
+            display: inline-block; /* Ensure the element can animate width */
+            animation: typing 3s steps(30, end), blink-caret .75s step-end infinite;
+            box-sizing: border-box; /* Include border in width calculation */
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: white; }
+        }
+
+        .socials {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            align-items: center;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .social-link img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .social-link a {
+            color: #00bfff;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+
+        .discord {
+            margin-top: 20px;
+        }
+
+        .discord img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .projects-container {
+            width: 40%;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .projects h2 {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .projects {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .project-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .project-icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+
+        .project-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-details a {
+            color: #00bfff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .status {
+            font-size: 0.9em;
+            border-radius: 5px;
+            padding: 2px 5px;
+            margin-top: 5px;
+        }
+
+        .status.in-progress {
+            background-color: yellow;
+            color: black;
+        }
+
+        .status.working {
+            background-color: limegreen;
+            color: white;
+        }
+
+        .status.active {
+            background-color: #28a745;
+            color: white;
+        }
+    </style>
 <body>
   <main class="cards">
     <h1 class="cards__heading">1.8 Texture Packs</h1>
